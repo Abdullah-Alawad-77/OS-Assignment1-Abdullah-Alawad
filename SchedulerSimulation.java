@@ -29,16 +29,33 @@ class Process implements Runnable {
     private int burstTime; // Total time the process requires to complete (in milliseconds)
     private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
-
+    //--------------------------------------------------------------------------
+// 1 Feature: Process Priority
+// Adds a random priority value from 1 to 10 for each process.
+    private int priority;// varible for priority
+    private static Random priorityRandom = new Random();//sfor take arandom value between 1 to 10 
+    //--------------------------------------------------------------------------
     // Constructor to initialize the process with name, burst time, and time quantum
     public Process(String name, int burstTime, int timeQuantum) {
         this.name = name;
         this.burstTime = burstTime;
         this.timeQuantum = timeQuantum;
         this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time
+        //-------------------------------------------------------------------------------------
+    // 1 Feature: Process Priority
+        this.priority = 1 + priorityRandom.nextInt(10);
+   // Generate a priority between 1 and 10 when the process is created.
+  // This method will be called when the thread for this process is started
+        //-------------------------------------------------------------------------------------------
     }
-
-    // This method will be called when the thread for this process is started
+    //---------------------------------------------------------------------------------
+        // 1 Feature: Process Priority
+    // Uses the student ID so the priority sequence is repeatable for the student.
+        public static void setPrioritySeed(int seed) {
+          priorityRandom = new Random(seed);
+    //---------------------------------------------------------------------------------
+}
+   
     @Override
     public void run() {
         // Simulate running for either the time quantum or remaining time, whichever is smaller
@@ -136,7 +153,14 @@ class Process implements Runnable {
     public int getRemainingTime() {
         return remainingTime;
     }
-
+     //---------------------------------------------
+     // 1 Feature: Process Priority
+    // Returns the priority
+    public int getPriority() {
+        return priority;
+}
+  //---------------------------------------------
+        
     // Check if the process has finished (i.e., no remaining time)
     public boolean isFinished() {
         return remainingTime <= 0;
@@ -150,7 +174,11 @@ public class SchedulerSimulation {
         int studentID = 446050626;  // ← CHANGE THIS TO YOUR ACTUAL STUDENT ID
         
         Random random = new Random(studentID);
-        
+        //-------------------------------------
+        // 1 Feature: Process Priority
+// Seed the priority generator using the same student ID for repeatable output.
+Process.setPrioritySeed(studentID);
+        //-------------------------------------
         // Define the time quantum in milliseconds (the maximum time a process gets in one round)
         // Choose a random number between 2000 and 5000 ms with a step of 1000 ms
         int timeQuantum = 2000 + random.nextInt(4) * 1000; // Random: 2000, 3000, 4000, or 5000
@@ -295,5 +323,10 @@ public class SchedulerSimulation {
                           Colors.RESET + Colors.BLUE + " added to ready queue" + Colors.RESET + 
                           " │ Burst time: " + Colors.YELLOW + process.getBurstTime() + "ms" + 
                           Colors.RESET);
+        // 1 Feature: Process Priority
+        //--------------------------------------------------
+// Display the process priority when the process enters the ready queue.
+System.out.println(Colors.YELLOW + "     Priority: " + Colors.BRIGHT_YELLOW + process.getPriority() + Colors.RESET);
+        //--------------------------------------------------
     }
 }
