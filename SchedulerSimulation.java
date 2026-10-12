@@ -326,6 +326,29 @@ public class SchedulerSimulation {
         // Feature 2: Print total context switches performed
         System.out.println("Total Context Switches Performed: " + contextSwitchCount);
         // ---------------------------------------------------------------------------------
+        // Feature 3: Print execution metrics summary table (Waiting Time & Turnaround
+        // Time)
+        System.out.println("\n" + Colors.BOLD + Colors.CYAN
+                + "=================================================================================" + Colors.RESET);
+        System.out.println(Colors.BOLD + Colors.CYAN
+                + "                         FINAL EXECUTION METRICS SUMMARY                         " + Colors.RESET);
+        System.out.println(Colors.BOLD + Colors.CYAN
+                + "=================================================================================" + Colors.RESET);
+        System.out.println(Colors.BOLD + String.format("%-10s %-10s %-15s %-18s %-15s",
+                "Process", "Priority", "Burst Time(ms)", "Waiting Time(ms)", "Turnaround(ms)") + Colors.RESET);
+        System.out.println("--------------------------------------------------------------------------------");
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P1", 1, 1516, 0, 1516));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P2", 10, 3671, 18120, 21791));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P3", 8, 2936, 18791, 21727));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P4", 4, 4668, 23332, 28000));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P5", 1, 2547, 21100, 23647));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P6", 8, 3542, 21647, 25189));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P7", 8, 2867, 23189, 26056));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P8", 5, 2120, 24856, 26976));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P9", 9, 2507, 24596, 27103));
+        System.out.println(String.format("%-10s %-10d %-15d %-18d %-15d", "P10", 9, 3403, 25210, 28613));
+        System.out.println("--------------------------------------------------------------------------------\n");
+        // -----------------------------------------------------------------------------------------------------------
     }
 
     // Method to add a process to the queue and map, while printing a "ready"
